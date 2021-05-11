@@ -1,0 +1,25 @@
+{
+  "name": "backend-server",
+  "version": "1.0.0",
+  "description": "template for sit725 practice",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FaunaFication-737-780/Backend-Server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FaunaFication-737-780/Backend-Server/issues"
+  },
+  "homepage": "https://github.com/FaunaFication-737-780/Backend-Server#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^3.6.6",
+    "mongoose": "^5.12.8"
+  }
+}
