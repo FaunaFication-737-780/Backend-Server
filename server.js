@@ -25,12 +25,12 @@ var kittySchema = mongoose.Schema({
     name: String
 });
 
-kittySchema.methods.speak = function () {
-    var greeting = this.name ?
-        "Meow name is " + this.name :
-        "I don't have a name";
-    console.log(greeting);
-}
+// kittySchema.methods.speak = function () {
+//     var greeting = this.name ?
+//         "Meow name is " + this.name :
+//         "I don't have a name";
+//     console.log(greeting);
+// }
 //create a model kitten in database
 var Kitten = mongoose.model('Kitten', kittySchema);
 
@@ -38,11 +38,11 @@ var Kitten = mongoose.model('Kitten', kittySchema);
 const addCat = (name)=>{
     
     var newCat = new Kitten({ name: name});
-    newCat.speak(); // "Meow name is inputValue"
+    //newCat.speak(); // "Meow name is inputValue"
 
     newCat.save(function (err, newCat) {
         if (err) return console.error(err);
-        newCat.speak();
+        //newCat.speak();
       });
       Kitten.find(function (err, kittens) {
         if (err) return console.error(err);
@@ -50,7 +50,15 @@ const addCat = (name)=>{
       })
 }
 const watchData = ()=>{
-    Kitten.watch().on('change', data => console.log('the new cat name is ' +data.fullDocument.name));
+    Kitten.watch().on('change', data => {
+        if (data.operationType == 'insert') {
+            console.log('the new data is: ');
+            console.log(data.fullDocument);
+        } else {
+            console.log('the updated/removed document is ');
+            console.log(data.updateDescription);
+        }
+    });
 }
 
 watchData()
