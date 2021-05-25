@@ -34,6 +34,34 @@ const watchData = () => {
     speciesModel.watch().on('change', data => {
         //if the data change, send a post request to the front end server
         //so the data is always alive
+    
+        //if the new data income
+        if (data.operationType == 'insert') {
+            console.log('the new data is: ');
+            console.log(data);
+            //convert bson type into string, so we can display in the frontend
+            data.fullDocument._id = data.fullDocument._id.toString()
+            var payload = {
+                //set the payload as the data
+                data: data.fullDocument,
+                type: 'insert'
+            }
+        }
+        //if the data is updated
+        if(data.operationType == 'update') {
+
+            //set the payload with id and updated field
+            var payload = {
+                _id: data.documentKey._id.toString(),
+                data: data.updateDescription.updatedFields,
+                type: 'update'
+            }
+            console.log('the updated/removed document is ');
+            console.log(data.documentKey._id.toString());
+        }
+
+
+
 
         //Custom Header pass
         var headersOpt = {
@@ -42,8 +70,8 @@ const watchData = () => {
         request({
             method: 'post',
             //should change the endpoint
-            url: 'https://animals-in-australia.us-south.cf.appdomain.cloud/',
-            form: data,
+            url: 'http://localhost:3000/updateData',
+            form: payload,
             headers: headersOpt,
             json: true,
         }, function (error, response, body) {
@@ -53,13 +81,7 @@ const watchData = () => {
 
 
 
-        if (data.operationType == 'insert') {
-            console.log('the new data is: ');
-            console.log(data);
-        } else {
-            console.log('the updated/removed document is ');
-            console.log(data);
-        }
+        
     });
 }
 
@@ -71,12 +93,12 @@ app.use(express.static('public'))
 //for test the watch function
 app.get('/addCat', (req, res) => {
     var newCat = new speciesModel({
-        name: 'String',
-        popTrend: 'String',
-        status: 'String',
-        threats: 'String',
-        conservActions: 'String',
-        image: 'String'
+        name: 'Strdfding',
+        popTrend: 'Stridfdfng',
+        status: 'Strindfdg',
+        threats: 'Strifdfdng',
+        conservActions: 'fdfString',
+        image: 'dfdString'
     });
     newCat.save(function (err, newCat) {
         if (err) return console.error(err);

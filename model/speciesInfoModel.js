@@ -1,6 +1,6 @@
 const { model } = require('mongoose')
 
-const SpeciesInfo = model('species-info', {
+const SpeciesInfo = model('speciesInfo', {
     name: String,
     popTrend: String,
     status: String,
