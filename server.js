@@ -71,7 +71,7 @@ const watchData = () => {
             method: 'post',
             //should change the endpoint
             //url: 'http://localhost:3000/updateData',
-            url: "https://whydidyoubreaktoday-sleepy-eland.mybluemix.net/"
+            url: "https://whydidyoubreaktoday-sleepy-eland.mybluemix.net/",
             form: payload,
             headers: headersOpt,
             json: true,
