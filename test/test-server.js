@@ -2,7 +2,7 @@ const express = require('express');
 const app = express()
 const MongoClient = require('mongodb').MongoClient;
 const mongoose = require("mongoose")
-const speciesModel = require('./model/speciesInfoModel')
+
 
 
 const request = require('request');
@@ -26,12 +26,39 @@ db.once('open', function () {
     console.log("database connected")
 
 });
+//create a new schema
+var kittySchema = mongoose.Schema({
+    name: String
+});
+
+kittySchema.methods.speak = function () {
+    var greeting = this.name ?
+        "Meow name is " + this.name :
+        "I don't have a name";
+    console.log(greeting);
+}
+//create a model kitten in database
+var Kitten = mongoose.model('Kitten', kittySchema);
 
 
+const addCat = (name) => {
 
+    var newCat = new Kitten({
+        name: name
+    });
+    newCat.speak(); // "Meow name is inputValue"
 
+    newCat.save(function (err, newCat) {
+        if (err) return console.error(err);
+        newCat.speak();
+    });
+    Kitten.find(function (err, kittens) {
+        if (err) return console.error(err);
+        console.log(kittens);
+    })
+}
 const watchData = () => {
-    speciesModel.watch().on('change', data => {
+    Kitten.watch().on('change', data => {
         //if the data change, send a post request to the front end server
         //so the data is always alive
 
@@ -41,8 +68,7 @@ const watchData = () => {
         };
         request({
             method: 'post',
-            //should change the endpoint
-            url: 'https://animals-in-australia.us-south.cf.appdomain.cloud/',
+            url: 'http://localhost:3004/',
             form: data,
             headers: headersOpt,
             json: true,
@@ -55,10 +81,10 @@ const watchData = () => {
 
         if (data.operationType == 'insert') {
             console.log('the new data is: ');
-            console.log(data);
+            console.log(data.fullDocument);
         } else {
             console.log('the updated/removed document is ');
-            console.log(data);
+            console.log(data.updateDescription);
         }
     });
 }
@@ -70,18 +96,8 @@ app.use(express.static('public'))
 //this end point for add data into database 
 //for test the watch function
 app.get('/addCat', (req, res) => {
-    var newCat = new speciesModel({
-        name: 'String',
-        popTrend: 'String',
-        status: 'String',
-        threats: 'String',
-        conservActions: 'String',
-        image: 'String'
-    });
-    newCat.save(function (err, newCat) {
-        if (err) return console.error(err);
-        
-    });
+    let name = encodeURI(req.query.name)
+    addCat(name)
     res.send('add cat done');
 
 })
