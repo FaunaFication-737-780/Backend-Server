@@ -2,6 +2,7 @@ const express = require('express');
 const app = express()
 const mongoose = require("mongoose")
 const watchData = require('./controllers/watchData')
+const routers = require('./routes/donateRoutes')
 
 
 
@@ -32,8 +33,7 @@ watchData.watchData(app)
 
 app.use(express.static('public'))
 
-//this end point for add data into database 
-//for test the watch function
+app.use('/donate', routers.router)
 
 
 
