@@ -5,7 +5,7 @@ const watchData = (app) => {
     speciesModel.watch().on('change', data => {
         //if the data change, send a post request to the front end server
         //so the data is always alive
-    
+
         //if the new data income
         if (data.operationType == 'insert') {
             console.log('the new data is: ');
@@ -19,7 +19,7 @@ const watchData = (app) => {
             }
         }
         //if the data is updated
-        if(data.operationType == 'update') {
+        if (data.operationType == 'update') {
 
             //set the payload with id and updated field
             var payload = {
@@ -53,10 +53,11 @@ const watchData = (app) => {
 
 
 
-        
+
     });
 
-
+    //this end point for add data into database 
+    //for test the watch function
     app.get('/addCat', (req, res) => {
         var newCat = new speciesModel({
             name: 'Strdfding',
@@ -68,11 +69,13 @@ const watchData = (app) => {
         });
         newCat.save(function (err, newCat) {
             if (err) return console.error(err);
-            
+
         });
         res.send('add cat done');
-    
+
     })
 }
 
-module.exports ={watchData}
+module.exports = {
+    watchData
+}
