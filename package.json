@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/FaunaFication-737-780/Backend-Server#readme",
   "dependencies": {
+    "csvtojson": "^2.0.10",
     "express": "^4.17.1",
     "mongodb": "^3.6.6",
     "mongoose": "^5.12.8",
