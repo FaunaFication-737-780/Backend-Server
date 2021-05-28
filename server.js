@@ -2,7 +2,8 @@ const express = require('express');
 const app = express()
 const mongoose = require("mongoose")
 const watchData = require('./controllers/watchData')
-const routers = require('./routes/donateRoutes')
+const donateRouter = require('./routes/donateRoutes')
+const charitiesRouter = require('./routes/charitiesRoutes')
 
 
 
@@ -33,7 +34,8 @@ watchData.watchData(app)
 
 app.use(express.static('public'))
 
-app.use('/donate', routers.router)
+app.use('/donate', donateRouter.router)
+app.use('/charities',charitiesRouter.router)
 
 
 
