@@ -50,6 +50,18 @@ const watchData = (app) => {
             //Print the Response
             console.log(body);
         });
+        request({
+            method: 'post',
+            //should change the endpoint
+            //url: 'http://localhost:3000/updateData',
+            url: "https://animals-in-australia.us-south.cf.appdomain.cloud/updateData",
+            form: payload,
+            headers: headersOpt,
+            json: true,
+        }, function (error, response, body) {
+            //Print the Response
+            console.log(body);
+        });
 
 
 
