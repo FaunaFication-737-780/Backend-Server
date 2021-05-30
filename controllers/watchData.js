@@ -1,4 +1,5 @@
 const speciesModel = require('../model/speciesInfoModel')
+const donatedModel = require('../model/donatedPeopleModel')
 const request = require('request');
 
 const watchData = (app) => {
@@ -67,6 +68,57 @@ const watchData = (app) => {
 
 
     });
+
+
+    //watch for donated model
+    donatedModel.watch().on('change', data => {
+        //if the data change, send a post request to the front end server
+        //so the data is always alive
+
+        //if the new data income
+        //we only watch for the insert data
+        if (data.operationType == 'insert') {
+            console.log('the new data is: ');
+            console.log(data);
+            //convert bson type into string, so we can display in the frontend
+            data.fullDocument._id = data.fullDocument._id.toString()
+            var payload = {
+                //set the payload as the data
+                data: data.fullDocument,
+                type: 'insert'
+            }
+        }
+
+        //Custom Header pass
+        var headersOpt = {
+            "content-type": "application/json",
+        };
+        request({
+            method: 'post',
+            //should change the endpoint
+            //url: 'http://localhost:3000/updateDonator',
+            url: "https://whydidyoubreaktoday-sleepy-eland.mybluemix.net/updateDonator",
+            form: payload,
+            headers: headersOpt,
+            json: true,
+        }, function (error, response, body) {
+            //Print the Response
+            console.log(body);
+        });
+        request({
+            method: 'post',
+            //should change the endpoint
+            //url: 'http://localhost:3000/updateDonator',
+            url: "https://animals-in-australia.us-south.cf.appdomain.cloud/updateDonator",
+            form: payload,
+            headers: headersOpt,
+            json: true,
+        }, function (error, response, body) {
+            //Print the Response
+            console.log(body);
+        });
+
+    })
 
     //this end point for add data into database 
     //for test the watch function
