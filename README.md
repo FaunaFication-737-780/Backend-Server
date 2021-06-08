@@ -3,10 +3,8 @@
 This service is used to process the backend data, and when front end send request, provide the data. 
 
 ## The items for this service
-- IBM Watson APIs
-- Data for animals
+- Add Charities data
 - Watch the data changes
-- etc...
 
 ## How to run it
 ```
