@@ -11,9 +11,11 @@ router.get('/', (req, res) => {
     console.log(email);
     var newPeople = new donatedPeople({
         name: name,
-        email: email
+        email: email,
+        date: Date.now()
        
     });
+    console.log(newPeople.date.getDate());
     newPeople.save(function (err, newCat) {
         if (err) return console.error(err);
 

@@ -1,47 +1,37 @@
 const express = require('express');
-const app = express()
-const mongoose = require("mongoose")
-const watchData = require('./controllers/watchData')
-const donateRouter = require('./routes/donateRoutes')
-const charitiesRouter = require('./routes/charitiesRoutes')
+const app = express();
+const mongoose = require('mongoose');
+const watchData = require('./controllers/watchData');
+const donateRouter = require('./routes/donateRoutes');
+const charitiesRouter = require('./routes/charitiesRoutes');
+const watsonRoutes = require('./routes/watsonRoutes');
 
+const PORT = process.env.PORT || 3002;
 
-
-
-
-const PORT = process.env.PORT || 3002
-
-const uri ='mongodb+srv://admin:admin@cluster0.5cdt0.mongodb.net/geodata'
+const uri = 'mongodb+srv://admin:admin@cluster0.5cdt0.mongodb.net/geodata';
 //const uri = "mongodb://ray:1998@cluster0-shard-00-00.ho33k.mongodb.net:27017,cluster0-shard-00-01.ho33k.mongodb.net:27017,cluster0-shard-00-02.ho33k.mongodb.net:27017/test?ssl=true&replicaSet=atlas-k8w5gq-shard-0&authSource=admin&retryWrites=true&w=majority";
 //mongoose.connect('mongodb+srv://admin:admin@cluster0.5cdt0.mongodb.net/geodata', {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
 let db = mongoose.connection;
 
-db.on('error', console.error.bind(console, 'MongoDB connection error'))
+db.on('error', console.error.bind(console, 'MongoDB connection error'));
 db.once('open', function () {
-    // we're connected!
-    console.log("database connected")
-
+  // we're connected!
+  console.log('database connected');
 });
 
+watchData.watchData(app);
 
-watchData.watchData(app)
+app.use(express.static('public'));
 
-
-app.use(express.static('public'))
-
-app.use('/donate', donateRouter.router)
-app.use('/charities',charitiesRouter.router)
-
-
-
-
-
+app.use('/donate', donateRouter.router);
+app.use('/charities', charitiesRouter.router);
+app.use('/watson', watsonRoutes.router);
 
 app.listen(PORT, () => {
-    console.log('server started on port ' + PORT)
-})
+  console.log('server started on port ' + PORT);
+});
