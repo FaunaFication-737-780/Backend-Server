@@ -10,7 +10,8 @@ const discovery = new DiscoveryV1({
     //Yemi's apikey 10-June-2021
    apikey: 'tfoocvuDQq5Wc5Db_sqj2rbUL2otGtMNM6flHsFA6wHf',
   }),
-  serviceUrl: 'https://api.us-south.discovery.watson.cloud.ibm.com',
+  //serviceUrl: 'https://api.us-south.discovery.watson.cloud.ibm.com',
+  serviceUrl: 'https://api.au-syd.discovery.watson.cloud.ibm.com',
 });
 
 // const environmentId = '4e5276ab-e80b-41e7-b16c-91bb2d2693eb'
