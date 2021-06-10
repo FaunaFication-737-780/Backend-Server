@@ -7,8 +7,7 @@ const discovery = new DiscoveryV1({
   version: '2019-04-30',
   authenticator: new IamAuthenticator({
     //apikey: '--KTG2kQCnkxynw-7P2vmC-BrgSHrIpK08WsY9Ud2QVr',
-    //Yemi's apikey 10-June-2021
-   apikey: 'tfoocvuDQq5Wc5Db_sqj2rbUL2otGtMNM6flHsFA6wHf',
+    apikey: 'tfoocvuDQq5Wc5Db_sqj2rbUL2otGtMNM6flHsFA6wHf',
   }),
   //serviceUrl: 'https://api.us-south.discovery.watson.cloud.ibm.com',
   serviceUrl: 'https://api.au-syd.discovery.watson.cloud.ibm.com',
