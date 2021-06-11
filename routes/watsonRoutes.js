@@ -7,10 +7,11 @@ const discovery = new DiscoveryV1({
   version: '2019-04-30',
   authenticator: new IamAuthenticator({
     //apikey: '--KTG2kQCnkxynw-7P2vmC-BrgSHrIpK08WsY9Ud2QVr',
-    apikey: 'GbHklaOq19Y0jgyvhbK2WDT8FVA98K2_3nFHsjwlczrI',
+    //apikey: 'GbHklaOq19Y0jgyvhbK2WDT8FVA98K2_3nFHsjwlczrI',
+    apikey: 'ZOBAwYhFUIZ1FYt6FH8uajCdMQxMrShp6bnwo8X0Osax',
   }),
-  //serviceUrl: 'https://api.us-south.discovery.watson.cloud.ibm.com',
-  serviceUrl: 'https://api.au-syd.discovery.watson.cloud.ibm.com',
+  serviceUrl: 'https://api.us-south.discovery.watson.cloud.ibm.com',
+  //serviceUrl: 'https://api.au-syd.discovery.watson.cloud.ibm.com',
 });
 
 // const environmentId = '4e5276ab-e80b-41e7-b16c-91bb2d2693eb'
